@@ -87,13 +87,13 @@
 
 
 
-        <h2>Porcentaje de cómo cree la gente que roban las cuentas</h2>
+        <!--  <h2>Porcentaje de cómo cree la gente que roban las cuentas</h2>
         <div class="graphContainer">
             <Bar class="graph barGraph" :data="chartData['¿Tenés contraseñas variadas?']"
                 :options="{ ...barOptions, animation: graphAnimations[4] }" />
         </div>
 
-        <br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br> -->
 
         <h2>Porcentaje de personas a cuyas cuenta accedieron sin permiso:</h2>
         <div class="graphContainer">
@@ -895,9 +895,9 @@ header {
     background-color: black;
     border-bottom-left-radius: 80px;
     border-bottom-right-radius: 80px;
-    border-bottom: 5px solid white;
-    border-left: 5px solid white;
-    border-right: 5px solid white;
+    border-bottom: 5px solid rgb(233, 230, 230);
+    border-left: 5px solid rgb(233, 230, 230);
+    border-right: 5px solid rgb(233, 230, 230);
 }
 
 h1,
@@ -939,7 +939,7 @@ header,
 }
 
 .barGraph * {
-    color: white !important;
+    color: rgb(233, 230, 230) !important;
 }
 
 .card {
@@ -949,12 +949,16 @@ header,
 
     background-color: black;
 
-    border: 5px solid #9fef00;
+    border: 5px solid rgb(233, 230, 230);
 
     border-radius: 5px;
 }
 
 main {
     padding: 0px 60px;
+}
+
+.title {
+    margin-top: 70px;
 }
 </style>
