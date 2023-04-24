@@ -1,7 +1,7 @@
 
 export const barOptions = {
   responsive: true,
-  maintainAspectRatio: false,
+  maintainAspectRatio: true,
   events: [],
   scales: {
     y: {
@@ -18,7 +18,12 @@ export const barOptions = {
     }
   },
   grid: {
-    color: "white"
+    color: "white",
+    lineColor: "white",
+    backgroundColor: "white",
+    display: true,
+    drawOnChartArea: true,
+    drawTicks: true,
   },
   defaultFontColor: 'white'
 }
