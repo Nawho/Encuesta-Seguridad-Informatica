@@ -7,14 +7,17 @@ export const barOptions = {
     y: {
       min: 0,
       max: 100,
-      color: "white"
-
+      color: "white",
+      ticks: {
+        callback: function (value: any) {
+          return value + '%'
+        }
+      }
     }
   },
   plugins: {
     legend: {
       display: false,
-
     }
   },
   grid: {

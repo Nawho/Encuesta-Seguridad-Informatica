@@ -3181,7 +3181,7 @@ function fillAccountSecurityByMeasurePercentage() {
         }
 
         securityByMeasure[answer] /= totalAnswers
-        securityByMeasure[answer] = securityByMeasure[answer].toFixed(4) * 100
+        securityByMeasure[answer] = securityByMeasure[answer].toFixed(3) * 100
     }
 
     accountSecurityByMeasurePercentage.labels = passwordRelatedQuestions
@@ -3241,7 +3241,7 @@ function fillAccountSecurityByAge() {
 
     for (let data of (Object.values(ageAndSecurity))) {
         data.security /= data.totalResponses
-        data.security = data.security.toFixed(4) * 100
+        data.security = data.security.toFixed(3) * 100
     }
 
     accountSecurityByAgeData.labels = Object.keys(ageAndSecurity)
@@ -3285,7 +3285,7 @@ function fillOtherSecurityByMeasurePercentage() {
         }
 
         securityByMeasure[answer] /= totalAnswers
-        securityByMeasure[answer] = securityByMeasure[answer].toFixed(4) * 100
+        securityByMeasure[answer] = securityByMeasure[answer].toFixed(3) * 100
     }
 
     otherSecurityByMeasurePercentage.labels = passwordRelatedQuestions
@@ -3355,7 +3355,7 @@ function fillOtherSecurityByAge() {
 
     for (let data of (Object.values(ageAndSecurity))) {
         data.security /= data.totalResponses
-        data.security = data.security.toFixed(4) * 100
+        data.security = data.security.toFixed(3) * 100
     }
 
     otherSecurityByAgeData.labels = Object.keys(ageAndSecurity)
@@ -3399,7 +3399,7 @@ function fillGeneralSecurityByMeasurePercentage() {
         }
 
         securityByMeasure[answer] /= totalAnswers
-        securityByMeasure[answer] = securityByMeasure[answer].toFixed(4) * 100
+        securityByMeasure[answer] = securityByMeasure[answer].toFixed(3) * 100
     }
 
     generalSecurityByMeasurePercentage.labels = passwordRelatedQuestions
@@ -3468,7 +3468,7 @@ function fillGeneralSecurityByAge() {
 
     for (let data of (Object.values(ageAndSecurity))) {
         data.security /= data.totalResponses
-        data.security = data.security.toFixed(4) * 100
+        data.security = data.security.toFixed(3) * 100
     }
 
     generalSecurityByAgeData.labels = Object.keys(ageAndSecurity)
