@@ -116,13 +116,13 @@
 
         <br><br><br><br><br>
 
-        <h3>
+   <!--      <h3>
             Porcentaje de buenas prácticas seguidas en total (por práctica):
         </h3>
         <div class="graphContainer">
             <Bar class="graph barGraph" :data="generalSecurityByMeasurePercentage"
                 :options="{ ...barOptions, animation: graphAnimations[7] }" />
-        </div>
+        </div> -->
     </main>
 </template>
 
