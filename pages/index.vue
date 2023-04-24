@@ -3633,10 +3633,7 @@ header,
     border-radius: 5px;
 }
 
-canvas {
-    padding: 15px 15px;
-    border: 5px solid white;
-}
+
 
 main {
     padding: 10px 60px;
