@@ -3372,6 +3372,7 @@ function fillParticipantsByAge() {
         //bgColors.push(getColorForPercentage(accountSecurityByMeasurePercentage.datasets[0].data[i] / 100))
         bgColors.push(getRandomColor())
     }
+    participantsByAge.labels=["A","B","C","D","E"] 
     participantsByAge.datasets[0].backgroundColor = bgColors
 }
 
