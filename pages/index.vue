@@ -5,11 +5,13 @@
         <h3>Descripición</h3>
 
         <p>
-            En este encuesta recolectamos datos acerca de qué tan seguras son las
+            En este encuesta recolectamos datos sobre la confiabilidad de las
             prácticas de seguridad online de los encuestados (actualizar sus
-            contraseñas regularmente, usar Wi-Fi público, antivirus, etc). Por un lado
+            contraseñas regularmente, usar Wi-Fi público, antivirus, etc). Obsevaremos
+            cuánto se cumple cada práctica, así como cuántas prácticas se cumplen por grupo
+            etario y a partir de ellos sacaremos nuestras conclusiones. <!-- Por un lado
             analizaremos los resultados generales, y por otro los resultados según
-            grupos etarios.
+            grupos etarios.-->
         </p>
     </div>
 
@@ -17,10 +19,9 @@
         <h3>Objetivos</h3>
 
         <p>
-            Con estos datos queremos darnos una idea de qué tanta educación y
-            concientización hace falta respecto a buenasn prácticas de seguridad, para
-            poder informar a la gente respecto de lo que más ignorancia haya y para
-            ayudarlos a prevenir malware, estafas y diversos ataques informáticos.
+            Con estos datos queremos darnos una idea de cómo está el paradigma de la seguridad
+            informática personal en Argentina, para posteriormente
+            poder informar y ayudar a la gente a prevenir malware, estafas y robos de datos.
         </p>
     </div>
 
@@ -29,7 +30,7 @@
         <ul>
             <li><b>Equipo de investigación:</b> Grupo ISECA.</li>
 
-            <li><b>Muestra:</b> Grupo de encuestados aleatorios de Argentina.</li>
+            <li><b>Muestra:</b> Grupo de alrededor de 200 encuestados online de Argentina.</li>
 
             <li><b>Fecha de publicación de la encuesta:</b> 17/04/2023.</li>
 
@@ -37,6 +38,16 @@
         </ul>
     </div>
 
+    <div class="card">
+        <h3>Consideraciones</h3>
+        <p>
+            Debido a la reducida cantidad de encuestados, no podemos garantizar que los resultados y
+            las conclusiones sean completamente fieles a la realidad ni representativos de toda la población.
+            Sin embargo, creemos que son suficientes datos como para poder sacar conlusiones y consideramos la
+            posiblidad de reabrir la encuesta en un futuro, posiblemente con más preguntas y difundiéndola a
+            un grupo más numeroso de personas.
+        </p>
+    </div>
 
     <main>
         <h1 class="title">Resultados de la encuesta de seguridad informática</h1>
@@ -52,7 +63,9 @@
             <Bar class="graph barGraph" :data="accountSecurityByAgeData"
                 :options="{ ...barOptions, animation: graphAnimations[0] }" :ref="el => { if (el) graphRefs[0] = el }" />
         </div>
-
+        <div class="centered">
+            <ChartAgeRefs></ChartAgeRefs>
+        </div>
         <br><br><br><br><br>
 
         <h3>
@@ -61,6 +74,16 @@
         <div class="graphContainer">
             <Bar class="graph barGraph" :data="accountSecurityByMeasurePercentage"
                 :options="{ ...barOptions, animation: graphAnimations[1] }" :ref="el => { if (el) graphRefs[1] = el }" />
+        </div>
+        <div class="centered">
+            <p>
+                <b>Referencia:</b>
+                <br>
+                <span v-for="data in Object.entries(accMesaureMap)">
+                    {{ data[0] }} - {{ data[1] }}
+                    <br>
+                </span>
+            </p>
         </div>
 
         <br><br><br><br><br><br><br>
@@ -73,6 +96,10 @@
             <Bar class="graph barGraph" :data="otherSecurityByAgeData"
                 :options="{ ...barOptions, animation: graphAnimations[2] }" :ref="el => { if (el) graphRefs[2] = el }" />
         </div>
+        <div class="centered">
+            <ChartAgeRefs></ChartAgeRefs>
+        </div>
+
 
         <br><br><br><br><br>
 
@@ -83,7 +110,17 @@
             <Bar class="graph barGraph" :data="otherSecurityByMeasurePercentage"
                 :options="{ ...barOptions, animation: graphAnimations[3] }" :ref="el => { if (el) graphRefs[3] = el }" />
         </div>
+        <div class="centered">
 
+            <p>
+                <b>Referencia:</b>
+                <br>
+                <span v-for="data in Object.entries(secMesaureMap)">
+                    {{ data[0] }} - {{ data[1] }}
+                    <br>
+                </span>
+            </p>
+        </div>
 
         <br><br><br><br><br><br><br>
 
@@ -99,8 +136,7 @@
 
         <h2>Porcentaje de personas a cuyas cuenta accedieron sin permiso:</h2>
         <div class="graphContainer">
-            <Pie class="graph" :data="unuauthorizedAccountAccessData"
-                :options="{ ...pieOptions, animation: graphAnimations[5] }" />
+            <Pie class="graph" :data="unuauthorizedAccountAccessData" :options="pieOptions" />
         </div>
 
         <br><br><br><br><br><br><br>
@@ -113,10 +149,28 @@
             <Bar class="graph barGraph" :data="generalSecurityByAgeData"
                 :options="{ ...barOptions, animation: graphAnimations[6] }" />
         </div>
+        <div class="centered">
+
+            <ChartAgeRefs></ChartAgeRefs>
+        </div>
 
         <br><br><br><br><br>
 
-   <!--      <h3>
+        <h3>Datos adicionales</h3>
+        <p>La media de edad es: ...</p>
+        <p>La moda de edad es: ...</p>
+
+        <h3>conclusiones</h3>
+        <p>En base a todos estos datos, concluímos que es necesario educar y concientizar más sobre la importancia de la
+            privacidad y seguridad online, sobre todo a las generaciones más jóvenes.
+
+            En la actualidad, puede resultar un tanto difícil esto, ya que muchas personas utilizan las redes sociales como
+            una forma de entretenimiento sin considerar los riesgos asociados y no tienen interés por informarse respecto a
+            prácticas de seguridad. A menudo, las personas dicen que no les importa su privacidad, pero luego se sorprenden
+            o preocupan cuando alguien accede a su cuenta o sabe demasiado sobre ellos. Aún así, tomaremos en cuenta lo
+            observado para informar, por lo menos a nuestros círculos más cercanos sobre el tema.</p>
+
+        <!--      <h3>
             Porcentaje de buenas prácticas seguidas en total (por práctica):
         </h3>
         <div class="graphContainer">
@@ -140,6 +194,7 @@ import {
 import { Pie, Bar } from 'vue-chartjs'
 import { barOptions, pieOptions } from '../composables/graphOptions.ts'
 import { toRaw } from 'vue';
+import ChartAgeRefs from '../components/ChartAgeRefs.vue'
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -152,6 +207,19 @@ ChartJS.register(
 
 ChartJS.defaults.color = "white"
 ChartJS.defaults = "white"
+
+const secMesaureMap = {
+    "A": "¿Usás Antivirus?",
+    "B": "¿Corroborás que la barra de navegación tenga el candado?",
+    "C": "¿Usás Wi-Fi público?"
+}
+
+const accMesaureMap = {
+    "A": "¿Actualizás tus contraseñas regularmente?",
+    "B": "¿Tenés contraseñas variadas?",
+    "C": "¿Sabés lo que es la autenticación de dos factores?",
+    "D": "¿Ignorás mails sospechosos?"
+}
 
 
 const percentColors = [
@@ -3195,9 +3263,11 @@ function fillAccountSecurityByMeasurePercentage() {
         bgColors.push(getColorForPercentage(accountSecurityByMeasurePercentage.datasets[0].data[i] / 100))
     }
 
+    accountSecurityByMeasurePercentage.labels = ["A", "B", "C", "D"]
     accountSecurityByMeasurePercentage.datasets[0].backgroundColor = bgColors
     console.log(accountSecurityByMeasurePercentage)
 }
+
 
 function fillAccountSecurityByAge() {
     const passwordRelatedQuestions = ["¿Actualizás tus contraseñas regularmente?", "¿Tenés contraseñas variadas?", "¿Sabés lo que es la autenticación de dos factores?", "¿Ignorás mails sospechosos?"]
@@ -3248,13 +3318,16 @@ function fillAccountSecurityByAge() {
     accountSecurityByAgeData.datasets = [{
         label: "Seguridad de cuentas por grupo etario",
         data: Object.values(ageAndSecurity).map((d) => d.security),
+        borderWidth: 1,
+        barPercentage: 1,
+        categoryPercentage: 1,
     }]
 
     const bgColors = []
     for (var i = 0; i < accountSecurityByAgeData.datasets[0].data.length; i++) {
         bgColors.push(getColorForPercentage(accountSecurityByAgeData.datasets[0].data[i] / 100))
     }
-
+    accountSecurityByAgeData.labels = ["A", "B", "C", "D", "E"]
     accountSecurityByAgeData.datasets[0].backgroundColor = bgColors
 }
 
@@ -3300,7 +3373,7 @@ function fillOtherSecurityByMeasurePercentage() {
     }
 
     otherSecurityByMeasurePercentage.labels[2] = "¿Usás Wi-Fi público? (positivo si no lo usan)"
-
+    otherSecurityByMeasurePercentage.labels = ["A", "B", "C"]
     otherSecurityByMeasurePercentage.datasets[0].backgroundColor = bgColors
     console.log(otherSecurityByMeasurePercentage)
 }
@@ -3362,13 +3435,16 @@ function fillOtherSecurityByAge() {
     otherSecurityByAgeData.datasets = [{
         label: "Porcentaje de otras prácticas de seguridad seguidas por grupo etario",
         data: Object.values(ageAndSecurity).map((d) => d.security),
+        borderWidth: 1,
+        barPercentage: 1,
+        categoryPercentage: 1,
     }]
 
     const bgColors = []
     for (var i = 0; i < otherSecurityByAgeData.datasets[0].data.length; i++) {
         bgColors.push(getColorForPercentage(otherSecurityByAgeData.datasets[0].data[i] / 100))
     }
-
+    otherSecurityByAgeData.labels = ["A", "B", "C", "D", "E"]
     otherSecurityByAgeData.datasets[0].backgroundColor = bgColors
 }
 
@@ -3474,6 +3550,9 @@ function fillGeneralSecurityByAge() {
     generalSecurityByAgeData.labels = Object.keys(ageAndSecurity)
     generalSecurityByAgeData.datasets = [{
         data: Object.values(ageAndSecurity).map((d) => d.security),
+        borderWidth: 1,
+        barPercentage: 1,
+        categoryPercentage: 1,
     }]
 
     const bgColors = []
@@ -3481,6 +3560,7 @@ function fillGeneralSecurityByAge() {
         bgColors.push(getColorForPercentage(generalSecurityByAgeData.datasets[0].data[i] / 100))
     }
 
+    generalSecurityByAgeData.labels = ["A", "B", "C", "D", "E"]
     generalSecurityByAgeData.datasets[0].backgroundColor = bgColors
 }
 
@@ -3494,7 +3574,7 @@ function fillUnuauthorizedAccountAccess() {
 
     }
 
-    unuauthorizedAccountAccessData.labels = ["Alguna vez accedieron a su cuenta sin permiso", "Nunca accedieron a su cuenta sin permiso"]
+    unuauthorizedAccountAccessData.labels = ["Accedieron a su cuenta ilegalmente (42%)", "Nunca accedieron a su cuenta ilegalmente (58%)"]
     unuauthorizedAccountAccessData.datasets = [{
         data: unuauthorizedAccountAccesses,
         backgroundColor: ["rgb(255,0,0)", "rgb(0,255,0)"]
@@ -3518,24 +3598,38 @@ fillAccountSecurityByAge()
 fillOtherSecurityByAge()
 fillGeneralSecurityByAge()
 fillUnuauthorizedAccountAccess()
+onMounted(() => {
+    /*     var ctx = document.getElementById("pie-chart").getContext('2d');
+        var myChart = new ChartJS(ctx, {
+            type: 'pie',
+            data: {
+                datasets: data
+            },
+            options: options
+        }); */
+    console.log("accountSecurityByAgeData", accountSecurityByAgeData)
+    console.log("accountSecurityByMeasurePercentage", accountSecurityByMeasurePercentage)
+    console.log("otherSecurityByMeasurePercentage", otherSecurityByMeasurePercentage)
+    console.log("otherSecurityByAgeData", otherSecurityByAgeData)
+    console.log("generalSecurityByMeasurePercentage", generalSecurityByMeasurePercentage)
+    console.log("generalSecurityByAgeData", generalSecurityByAgeData)
 
-/* onMounted(() => {
-    const graphs = Array.from(document.querySelectorAll(".graph"))
-    graphs.forEach((graph, index) => {
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                animateChart(index)
-                console.log("ANIMATAE")
-                observer.disconnect()
-            }
-        }, { threshold: [0] })
-
-        observer.observe(graph, index)
-    })
-
-
-    console.log(toRaw(graphRefs.value))
-}) */
+    /*    const graphs = Array.from(document.querySelectorAll(".graph"))
+       graphs.forEach((graph, index) => {
+           const observer = new IntersectionObserver(([entry]) => {
+               if (entry.isIntersecting) {
+                   animateChart(index)
+                   console.log("ANIMATAE")
+                   observer.disconnect()
+               }
+           }, { threshold: [0] })
+   
+           observer.observe(graph, index)
+       })
+   
+   
+       console.log(toRaw(graphRefs.value)) */
+}) 
 </script>
 
 <style>
@@ -3611,6 +3705,7 @@ header,
 
 .barGraph {
     margin-top: 20px !important;
+    min-height: 250px !important;
     height: 30vw;
     max-height: 600px !important;
 
@@ -3633,10 +3728,12 @@ header,
     border-radius: 5px;
 }
 
-
+.centered {
+    text-align: center;
+}
 
 main {
-    padding: 10px 60px;
+    padding: 10px 25px;
     margin-top: 50px;
 }
 
