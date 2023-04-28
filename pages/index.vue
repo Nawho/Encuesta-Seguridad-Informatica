@@ -5,11 +5,10 @@
         <h3>Descripición</h3>
 
         <p>
-            En este encuesta recolectamos datos sobre la confiabilidad de las
-            prácticas de seguridad online de los encuestados (actualizar sus
-            contraseñas regularmente, usar Wi-Fi público, antivirus, etc). Obsevaremos
-            cuánto se cumple cada práctica, así como cuántas prácticas se cumplen por grupo
-            etario y a partir de ellos sacaremos nuestras conclusiones. <!-- Por un lado
+            En esta encuesta recolectamos las prácticas de seguridad cumplidas por los encuestados
+            (actualizar sus contraseñas regularmente, usar Wi-Fi público, antivirus, etc).
+            Observamos cuánto se cumple cada práctica, así como cuántas prácticas se cumplen por
+            grupo etario y a partir de ellos sacamos nuestras conclusiones. <!-- Por un lado
             analizaremos los resultados generales, y por otro los resultados según
             grupos etarios.-->
         </p>
@@ -19,9 +18,10 @@
         <h3>Objetivos</h3>
 
         <p>
-            Con estos datos queremos darnos una idea de cómo está el paradigma de la seguridad
-            informática personal en Argentina, para posteriormente
-            poder informar y ayudar a la gente a prevenir malware, estafas y robos de datos.
+            Con estos datos queremos analizar el estado del paradigma de la seguridad informática personal en Argentina,
+            para posteriormente poder informar a la población sobre los distintos métodos disponibles para prevenir los
+            diversos
+            ataques electrónicos de los que podrían ser víctimas.
         </p>
     </div>
 
@@ -31,6 +31,8 @@
             <li><b>Equipo de investigación:</b> Grupo ISECA.</li>
 
             <li><b>Muestra:</b> Grupo de alrededor de 200 encuestados online de Argentina.</li>
+
+            <li><b>Método de recolección de datos:</b> Encuestas electrónicas.</li>
 
             <li><b>Fecha de publicación de la encuesta:</b> 17/04/2023.</li>
 
@@ -51,7 +53,16 @@
 
     <main>
         <h1 class="title">Resultados de la encuesta de seguridad informática</h1>
-
+        <br><br><br><br><br>
+        <h2>Cantidad De Personas Encuestadas Por Edad</h2>
+        <div class="graphContainer">
+            <Bar class="graph barGraph" :data="participantsByAge"
+                :options="{ ...participantsByAge, animation: graphAnimations[0] }"
+                :ref="el => { if (el) graphRefs[0] = el }" />
+        </div>
+        <div class="centered">
+            <ChartAgeRefs></ChartAgeRefs>
+        </div>
         <br><br><br><br><br>
 
         <h2>Seguridad de cuentas personales</h2>
@@ -157,8 +168,24 @@
         <br><br><br><br><br>
 
         <h3>Datos adicionales</h3>
-        <p>La media de edad es: ...</p>
-        <p>La moda de edad es: ...</p>
+        <b>Medidas de tendencia central:</b>
+        <ul>
+            <li>La media de edad es: 26,58</li>
+            <li>La moda de edad es: 18-29</li>
+            <li>La mediana de edad es: 23,5</li>
+        </ul>
+
+        <b>Medidas de dispersión:</b>
+        <ul>
+            <li>El rango de edad es: 76</li>
+            <li>La varianza de edad es: 270,09</li>
+            <li>El desvio estandar de edad es: 16,43</li>
+            <li>El coeficiente de variación de edad es: 61,83%</li>
+        </ul>
+
+
+
+
 
         <h3>conclusiones</h3>
         <p>En base a todos estos datos, concluímos que es necesario educar y concientizar más sobre la importancia de la
@@ -227,6 +254,13 @@ const percentColors = [
     { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
     { pct: 1.0, color: { r: 0x00, g: 0xff, b: 0 } }];
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+function getRandomColor() {
+    const color = { r: getRandomInt(256), g: getRandomInt(256), b: getRandomInt(256) }
+    return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
+}
 function getColorForPercentage(pct) {
     for (var i = 1; i < percentColors.length - 1; i++) {
         if (pct < percentColors[i].pct) {
@@ -3181,6 +3215,7 @@ const graphAnimations = ref([false, false, false, false, false, false, false])
 const responseData = {}
 const chartData = {}
 const accountSecurityByAgeData = {}
+const participantsByAge = {}
 const otherSecurityByAgeData = {}
 const generalSecurityByAgeData = {}
 const accountSecurityByMeasurePercentage = {}
@@ -3240,7 +3275,7 @@ function fillAccountSecurityByMeasurePercentage() {
         const totalAnswers = responses.reduce((x, y) => x + y)
         securityByMeasure[answer] = 0
 
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < passwordRelatedQuestions.length; i++) {
             if (labels[i] === "Sí" || labels[i] === "Si") {
                 securityByMeasure[answer] += 1 * responses[i]
             } else if (labels[i] === "A veces") {
@@ -3259,15 +3294,86 @@ function fillAccountSecurityByMeasurePercentage() {
     }]
 
     const bgColors = []
+    //const barColors= ['rgb(255,0,0)','rgb(255,255,0)','rgb(255,0,255)','rgb(0,255,0)','rgb(0,255,255)']
     for (var i = 0; i < accountSecurityByMeasurePercentage.datasets[0].data.length; i++) {
-        bgColors.push(getColorForPercentage(accountSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        //bgColors.push(getColorForPercentage(accountSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
     }
-
+    // 'rgb(' + [color.r, color.g, color.b].join(',') + ')'
     accountSecurityByMeasurePercentage.labels = ["A", "B", "C", "D"]
     accountSecurityByMeasurePercentage.datasets[0].backgroundColor = bgColors
     console.log(accountSecurityByMeasurePercentage)
 }
 
+function fillParticipantsByAge() {
+    const AgeBar = {
+        "Menos de 13": {
+            people: 0,
+            totalResponses: 0
+        },
+        "13 a 17": {
+            people: 0,
+            totalResponses: 0
+        },
+        "18 a 29": {
+            people: 0,
+            totalResponses: 0
+        },
+        "30 a 50": {
+            people: 0,
+            totalResponses: 0
+        },
+        "Mayor de 50": {
+            people: 0,
+            totalResponses: 0
+        }
+    }
+    for (const response of responseDataNotFormatted) {
+        const ages = response["Edad"]
+        if (ages == "Menos de 13") {
+            AgeBar['Menos de 13'].people += 1
+            AgeBar['Menos de 13'].totalResponses += 1
+        } else {
+            if (ages == "13 a 17") {
+                AgeBar['13 a 17'].people += 1
+                AgeBar['13 a 17'].totalResponses += 1
+            } else {
+                if (ages == "18 a 29") {
+                    AgeBar['18 a 29'].people += 1
+                    AgeBar['18 a 29'].totalResponses += 1
+                } else {
+                    if (ages == "30 a 50") {
+                        AgeBar['30 a 50'].people += 1
+                        AgeBar['30 a 50'].totalResponses += 1
+                    } else {
+                        AgeBar['Mayor de 50'].people += 1
+                        AgeBar['Mayor de 50'].totalResponses += 1
+                    }
+                }
+
+            }
+        }
+
+
+
+    }
+    console.log(AgeBar)
+    participantsByAge.labels = Object.keys(AgeBar)
+    participantsByAge.datasets = [{
+        label: "Seguridad de cuentas por grupo etario",
+        data: Object.values(AgeBar).map((d) => d.people),
+        borderWidth: 1,
+        barPercentage: 1,
+        categoryPercentage: 1,
+    }]
+    const bgColors = []
+    //const barColors= ['rgb(255,0,0)','rgb(255,255,0)','rgb(255,0,255)','rgb(0,255,0)','rgb(0,255,255)']
+    for (var i = 0; i < participantsByAge.datasets[0].data.length; i++) {
+        //bgColors.push(getColorForPercentage(accountSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
+    }
+    participantsByAge.datasets[0].backgroundColor = bgColors
+}
 
 function fillAccountSecurityByAge() {
     const passwordRelatedQuestions = ["¿Actualizás tus contraseñas regularmente?", "¿Tenés contraseñas variadas?", "¿Sabés lo que es la autenticación de dos factores?", "¿Ignorás mails sospechosos?"]
@@ -3325,7 +3431,8 @@ function fillAccountSecurityByAge() {
 
     const bgColors = []
     for (var i = 0; i < accountSecurityByAgeData.datasets[0].data.length; i++) {
-        bgColors.push(getColorForPercentage(accountSecurityByAgeData.datasets[0].data[i] / 100))
+        //bgColors.push(getColorForPercentage(accountSecurityByAgeData.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
     }
     accountSecurityByAgeData.labels = ["A", "B", "C", "D", "E"]
     accountSecurityByAgeData.datasets[0].backgroundColor = bgColors
@@ -3369,7 +3476,8 @@ function fillOtherSecurityByMeasurePercentage() {
 
     const bgColors = []
     for (var i = 0; i < otherSecurityByMeasurePercentage.datasets[0].data.length; i++) {
-        bgColors.push(getColorForPercentage(otherSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        //bgColors.push(getColorForPercentage(otherSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
     }
 
     otherSecurityByMeasurePercentage.labels[2] = "¿Usás Wi-Fi público? (positivo si no lo usan)"
@@ -3442,7 +3550,8 @@ function fillOtherSecurityByAge() {
 
     const bgColors = []
     for (var i = 0; i < otherSecurityByAgeData.datasets[0].data.length; i++) {
-        bgColors.push(getColorForPercentage(otherSecurityByAgeData.datasets[0].data[i] / 100))
+        //bgColors.push(getColorForPercentage(otherSecurityByAgeData.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
     }
     otherSecurityByAgeData.labels = ["A", "B", "C", "D", "E"]
     otherSecurityByAgeData.datasets[0].backgroundColor = bgColors
@@ -3485,7 +3594,8 @@ function fillGeneralSecurityByMeasurePercentage() {
 
     const bgColors = []
     for (var i = 0; i < generalSecurityByMeasurePercentage.datasets[0].data.length; i++) {
-        bgColors.push(getColorForPercentage(generalSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        //bgColors.push(getColorForPercentage(generalSecurityByMeasurePercentage.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
     }
 
     generalSecurityByMeasurePercentage.labels[2] = "¿Usás Wi-Fi público? (positivo si no lo usan)"
@@ -3557,7 +3667,8 @@ function fillGeneralSecurityByAge() {
 
     const bgColors = []
     for (var i = 0; i < generalSecurityByAgeData.datasets[0].data.length; i++) {
-        bgColors.push(getColorForPercentage(generalSecurityByAgeData.datasets[0].data[i] / 100))
+        //bgColors.push(getColorForPercentage(generalSecurityByAgeData.datasets[0].data[i] / 100))
+        bgColors.push(getRandomColor())
     }
 
     generalSecurityByAgeData.labels = ["A", "B", "C", "D", "E"]
@@ -3574,7 +3685,7 @@ function fillUnuauthorizedAccountAccess() {
 
     }
 
-    unuauthorizedAccountAccessData.labels = ["Accedieron a su cuenta ilegalmente (42%)", "Nunca accedieron a su cuenta ilegalmente (58%)"]
+    unuauthorizedAccountAccessData.labels = ["Accedieron a su cuenta ilegalmente (58%)", "Nunca accedieron a su cuenta ilegalmente (42%)"]
     unuauthorizedAccountAccessData.datasets = [{
         data: unuauthorizedAccountAccesses,
         backgroundColor: ["rgb(255,0,0)", "rgb(0,255,0)"]
@@ -3598,6 +3709,7 @@ fillAccountSecurityByAge()
 fillOtherSecurityByAge()
 fillGeneralSecurityByAge()
 fillUnuauthorizedAccountAccess()
+fillParticipantsByAge()
 onMounted(() => {
     /*     var ctx = document.getElementById("pie-chart").getContext('2d');
         var myChart = new ChartJS(ctx, {
@@ -3658,7 +3770,8 @@ h1,
 h2,
 h3,
 p,
-li {
+li,
+b {
     color: rgb(233, 230, 230);
 
     padding: 0px 10px;
@@ -3739,5 +3852,4 @@ main {
 
 .title {
     margin-top: 70px;
-}
-</style>
+}</style>
